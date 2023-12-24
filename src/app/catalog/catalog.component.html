@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="filters">
+    <a class="button" (click)="filter='Heads'">Heads</a>
+    <a class="button">Arms</a>
+    <a class="button">Torsos</a>
+    <a class="button">Bases</a>
+    <a class="button">All</a>
+  </div>
+
+  <ul class="products">
+    <li class="product-item" *ngFor="let product of getFilterProducts()">
+      <div class="product" *ngIf="product">
+        <div class="product-details">
+          <img [src]="getImageUrl(product)" [alt]="product.name" />
+          <div class="product-info">
+            <div class="name">{{ product.name }}</div>
+            <div class="description">{{product.description}}</div>
+            <div class="category">Part Type: {{ product.category}} </div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="bold" [ngClass]="getDiscountedClasses(product)">{{product.price | currency:'GBP'}}</div>
+          <div class="discount" *ngIf="product.discount !== 0">
+            ${{ (product.price * (1-product.discount)).toFixed(2)}}
+          </div>
+          <button class="cta" (click)="addToCart(product)">Buy</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
